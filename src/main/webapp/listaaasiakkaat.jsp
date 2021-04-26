@@ -13,8 +13,18 @@
 
 <h3> Myynti sovelluksen asiakkaat </h3>
 
+
+
+
 <table id="listaus" class="content-table">
+	
 	<thead>
+		<tr>
+			<th class="oikealle">Asiakashaku:</th>
+			<th colspan="3"><input type="text" id="hakusana"></th>
+			<th><input type="button" value="Hae" id="hakunappi"></th>
+		</tr>
+	
 		<tr>
 			<th>Asiakas_id</th>
 			<th>Etunimi</th>
@@ -29,18 +39,30 @@
 
 <br><br>
 
- <form class="form-inline my-2 my-lg-0">
-      <input class="form-control mr-sm-2" type="search" placeholder="Hae asiakkaan nimellä">
-      <br>
-      <button class="btn my-2 my-sm-0" type="submit">Hae</button>
-    </form>
-
-
 
 <script>
 
-$(document).ready(function(){
-	$.ajax({url:"asiakkaat", type:"GET", datatype:"json", success:function(result){
+
+$(document).ready(function(){	
+	haeAsiakkaat();
+	$("#hakunappi").click(function(){
+		console.log($("#hakusana").val());
+		haeAsiakkaat();
+	});
+	
+	$(document.body).on("keydown", function(event){
+		if(event.which==13){
+			haeAsiakkaat();
+		}
+	});
+	
+	$("#hakusana").focus();
+	
+});
+
+function haeAsiakkaat(){
+	$("#listaus tbody").empty();
+	$.ajax({url:"asiakkaat/"+$("#hakusana").val(), type:"GET", datatype:"json", success:function(result){
 		$.each(result.asiakkaat, function(i, field){
 			var htmlStr;
 			htmlStr+="<tr>";
@@ -51,10 +73,10 @@ $(document).ready(function(){
 			htmlStr+="<td>"+field.sposti+"</td>";
 			htmlStr+="</tr>";
 			$("#listaus tbody").append(htmlStr);
-		})
-		
+		});
 	}});
-});
+}
+
 
 </script>
 
