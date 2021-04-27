@@ -93,4 +93,24 @@ public class Dao {
 		return asiakkaat;
 	}
 	
+	public boolean lisaaAsiakas(Myynti myynti) {
+		boolean paluuArvo=true;
+		sql="INSERT INTO asiakkaat VALUES (?,?,?,?,?)";
+		try {
+			con=yhdista();
+			stmtPrep=con.prepareStatement(sql);
+			stmtPrep.setInt(1, myynti.getAsiakas_id());
+			stmtPrep.setString(2, myynti.getEtunimi());
+			stmtPrep.setString(3, myynti.getSukunimi());
+			stmtPrep.setString(4, myynti.getPuhelin());
+			stmtPrep.setString(5, myynti.getSposti());
+			stmtPrep.executeUpdate();
+			con.close();
+		} catch(Exception e) {
+			e.printStackTrace();
+			paluuArvo=false;
+		}
+		return paluuArvo;
+	}
+	
 }
