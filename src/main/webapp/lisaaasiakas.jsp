@@ -8,7 +8,7 @@
 <script src="scripts/main.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.15.0/jquery.validate.min.js"></script>
-<link rel="stylesheet" type="text/css" href="styles.css">
+<link rel="stylesheet" href="styles.css">
 
 
 <title>Uusi asiakas</title>
@@ -16,10 +16,10 @@
 <body>
 
 <form id="tiedot">
-	<table>
+	<table class="uusi-asiakas">
 		<thead>
 			<tr>
-				<th colspan="5" class="oikealle"><span id="takaisin">Takaisin listaukseen</span>
+				<th colspan="6" class="oikealle"><span class="takaisin" id="takaisin">Takaisin listaukseen</span>
 			</tr>
 		
 			<tr>
@@ -37,7 +37,7 @@
 				<td> <input type="text" name="Sukunimi" id="Sukunimi"></td>
 				<td> <input type="text" name="Puhelin" id="Puhelin"></td>
 				<td> <input type="text" name="Sposti" id="Sposti"></td>
-				<td> <input type="submit" id="tallenna" value="Lisää"></td>
+				<td> <input class="lisaa" type="submit" id="tallenna" value="Lisää"></td>
 			</tr>
 		</tbody>
 	</table>

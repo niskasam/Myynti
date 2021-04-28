@@ -1,12 +1,51 @@
 @charset "UTF-8";
 
+body{
+	background-color: #EBEBEB;
+}
+
+table.uusi-asiakas{
+	background-color: #191970;
+	color: whitesmoke;
+	border-radius: 5px;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+.takaisin{
+		cursor: pointer;
+		margin-top: 10px;
+		background-color: slategrey;
+}
+
+input.lisaa{
+	background-color: #008c00;
+	color: whitesmoke;
+}
+
+input.hakunappi{
+	width: 200px;
+}
+
+.oikealle{
+	text-align: right;
+}
+
+td input{
+	height: 30px;
+}
+
+h3{
+	text-align: center;
+}
+
 .content-table{
 	border-collapse: collapse;
 	border-radius: 10px 10px 4px 4px;
 	overflow: hidden;
-	margin: 25p 0;
+	margin-left: auto;
+	margin-right: auto;
 	font-size: 0.9em;
-	min-width: 400px;
 	box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
 	
 }
@@ -53,6 +92,23 @@ h3{
 	font-size: 1.5em;
 }
 
-.oikealle{
-	text-align: right;
+
+
+.uusi-asiakas{
+	cursor: pointer;
 }
+
+.poista {
+	color:red;
+	cursor: pointer;
+}
+
+input{
+	width: 200px;
+}
+
+input.haku{
+	width: 400px;
+
+	}
+	
