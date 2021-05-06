@@ -133,4 +133,85 @@ public class Dao {
 		return paluuArvo;
 	}
 	
+	
+	public Myynti etsiAsiakas(String asiakas_id) {
+		Myynti myynti = null;
+		sql = "SELECT * FROM asiakkaat WHERE asiakas_id=?";
+		try {
+
+			con=yhdista();
+			if(con!=null) {
+				stmtPrep = con.prepareStatement(sql);
+				stmtPrep.setString(1, asiakas_id);
+				rs = stmtPrep.executeQuery();
+				
+				String as_id = rs.getString(1);
+				int as_id2 = Integer.parseInt(as_id);
+				
+				if(rs.isBeforeFirst()) {
+					rs.next();
+					myynti = new Myynti();
+					myynti.setAsiakas_id(as_id2);
+					myynti.setEtunimi(rs.getString(2));
+					myynti.setSukunimi(rs.getString(3));
+					myynti.setPuhelin(rs.getString(4));
+					myynti.setSposti(rs.getString(5));
+				}
+			
+			} con.close();
+			
+		} catch(Exception e) {
+			e.printStackTrace();
+			
+		}
+		return myynti;
+	}
+	
+	public boolean muutaAsiakas(Myynti myynti, int asiakas_id) {
+		boolean paluuArvo=true;
+		
+		sql="UPDATE asiakkaat SET asiakas_id=?, etunimi=?, sukunimi=?, puhelin=?, sposti=? WHERE asiakas_id=?";
+		
+		try {
+			
+			con=yhdista();
+			stmtPrep=con.prepareStatement(sql);
+			stmtPrep.setInt(1, myynti.getAsiakas_id());
+			stmtPrep.setString(2, myynti.getEtunimi());
+			stmtPrep.setString(3, myynti.getSukunimi());
+			stmtPrep.setString(4, myynti.getPuhelin());
+			stmtPrep.setString(5, myynti.getSposti());
+			stmtPrep.setInt(6, asiakas_id);
+			stmtPrep.executeUpdate();
+			con.close();
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+			paluuArvo=false;
+		}
+		
+		
+		return paluuArvo;
+		
+	}
+	
+	public boolean poistaKaikkiAsiakkaat(String pwd) {
+		boolean paluuArvo = true;
+		
+		if(pwd!="del8cu5t!") {
+			return false;
+		}
+		
+		sql="DELETE FROM asiakkaat";
+		try {
+			
+		} catch(Exception e) {
+			e.printStackTrace();
+			paluuArvo=false;
+		}
+		
+		return paluuArvo;
+	}
+		
+	
 }

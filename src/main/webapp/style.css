@@ -1,8 +1,30 @@
 @charset "UTF-8";
 
+
+h3{
+	font-size: 2em !important;
+	text-align:center;
+	margin-top: 30px;
+	margin-bottom: 10px;
+}
+
+.ilmo{
+	color: green;
+    font-size: 20px;
+    text-align: center;
+    position: relative;
+    top: 100px;
+}
+
+.tiedot{
+	position:absolute;
+}
+
+
 body{
 	background-color: #EBEBEB;
 }
+
 
 table.uusi-asiakas{
 	background-color: #191970;
@@ -35,9 +57,6 @@ td input{
 	height: 30px;
 }
 
-h3{
-	text-align: center;
-}
 
 .content-table{
 	border-collapse: collapse;
@@ -87,11 +106,6 @@ h3{
 	width: 500px;
 	
 }
-
-h3{
-	font-size: 1.5em;
-}
-
 
 
 .uusi-asiakas{

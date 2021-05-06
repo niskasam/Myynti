@@ -24,6 +24,7 @@ public class Myynti {
 	public int getAsiakas_id() {
 		return asiakas_id;
 	}
+	
 	public void setAsiakas_id(int asiakas_id) {
 		this.asiakas_id = asiakas_id;
 	}
@@ -59,6 +60,13 @@ public class Myynti {
 				+ puhelin + ", sposti=" + sposti + "]";
 		
 	}
+
+	public void setAsiakas_id(String string) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	
 	
 
 }

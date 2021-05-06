@@ -3,17 +3,17 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8">
 
 <script src="scripts/main.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.15.0/jquery.validate.min.js"></script>
 <link rel="stylesheet" href="styles.css">
 
-
-<title>Uusi asiakas</title>
+<meta charset="UTF-8">
+<title>Asiakkaan muutos</title>
 </head>
 <body>
+
 
 <form id="tiedot">
 	<table class="uusi-asiakas">
@@ -37,22 +37,42 @@
 				<td> <input type="text" name="Sukunimi" id="sukunimi"></td>
 				<td> <input type="text" name="Puhelin" id="puhelin"></td>
 				<td> <input type="text" name="Sposti" id="sposti"></td>
-				<td> <input class="lisaa" type="submit" id="tallenna" value="Lisää"></td>
+				<td> <input class="lisaa" type="submit" id="tallenna" value="Hyväksy muutos"></td>
 			</tr>
 		</tbody>
 	</table>
+	
+	<input type="hidden" name="vanhaasiakas_id" id="vanhaasiakas_id">
+	
 </form>
 
 <span class="ilmo" id="ilmo"></span>
 
 </body>
-<script>
 
+<script>
+	
 $(document).ready(function(){
 	
 	$("#takaisin").click(function(){
 		document.location="listaaasiakkaat.jsp";
 	});
+	
+	var asiakas_id = requestURLParam("asiakas_id");
+	$.ajax({url:"asiakkaat/haeyksi/"+asiakas_id, type:"GET", dataType:"json", success:function(result){
+		
+		$("#vanhaasiakas_id").val(result.asiakas_id);
+		$("#asiakas_id").val(result.asiakas_id);
+		$("#etunimi").val(result.etunimi);
+		$("#sukunimi").val(result.sukunimi);
+		$("#puhelin").val(result.puhelin);
+		$("#sposti").val(result.sposti);
+		
+		console.log(asiakas_id);
+		console.log(result.asiakas_id);
+		
+	
+	}});
 	
 	
 	$("#tiedot").validate({
@@ -114,24 +134,24 @@ $(document).ready(function(){
 		},
 		
 		submitHandler: function(form){
-			lisaaTiedot();
+			muutaTiedot();
 		}
 	});
 });
 
-function lisaaTiedot(){
+function muutaTiedot(){
 	var formJsonStr = formDataJsonStr($("#tiedot").serializeArray());
-	$.ajax({url:"asiakkaat", data:formJsonStr, type:"POST", dataType: "json", success:function(result){
+	$.ajax({url:"asiakkaat", data:formJsonStr, type:"PUT", dataType: "json", success:function(result){
 		if(result.response==0){
-			$("#ilmo").html("Asiakkaan lisääminen epäonnistui.");
+			$("#ilmo").html("Asiakkaan muuttaminen epäonnistui.");
 		} else if(result.response==1){
-			$("#ilmo").html("Asiakkaan lisääminen onnistui.");
+			$("#ilmo").html("Asiakkaan muuttaminen onnistui.");
 			$("#asiakas_id", "#etunimi", "#sukunimi", "#puhelin", "#sposti").val("");
 		} 
 		
 	}});
 	
 }
-
 </script>
+
 </html>
