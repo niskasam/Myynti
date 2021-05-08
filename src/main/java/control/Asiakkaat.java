@@ -74,11 +74,11 @@ public class Asiakkaat extends HttpServlet {
 		
 		JSONObject jsonObj = new JsonStrToObj().convert(request);
 		Myynti myynti = new Myynti();
-		myynti.setAsiakas_id(jsonObj.getInt("Asiakas_id"));
-		myynti.setEtunimi(jsonObj.getString("Etunimi"));
-		myynti.setSukunimi(jsonObj.getString("Sukunimi"));
-		myynti.setPuhelin(jsonObj.getString("Puhelin"));
-		myynti.setSposti(jsonObj.getString("Sposti"));
+		myynti.setAsiakas_id(jsonObj.getInt("asiakas_id"));
+		myynti.setEtunimi(jsonObj.getString("etunimi"));
+		myynti.setSukunimi(jsonObj.getString("sukunimi"));
+		myynti.setPuhelin(jsonObj.getString("puhelin"));
+		myynti.setSposti(jsonObj.getString("sposti"));
 		
 		response.setContentType("application/json");
 		PrintWriter out = response.getWriter();
@@ -102,11 +102,11 @@ public class Asiakkaat extends HttpServlet {
 		
 		Myynti myynti = new Myynti();
 		
-		myynti.setAsiakas_id(jsonObj.getInt("Asiakas_id"));
-		myynti.setEtunimi(jsonObj.getString("Etunimi"));
-		myynti.setSukunimi(jsonObj.getString("Sukunimi"));
-		myynti.setPuhelin(jsonObj.getString("Puhelin"));
-		myynti.setSposti(jsonObj.getString("Sposti"));
+		myynti.setAsiakas_id(jsonObj.getInt("asiakas_id"));
+		myynti.setEtunimi(jsonObj.getString("etunimi"));
+		myynti.setSukunimi(jsonObj.getString("sukunimi"));
+		myynti.setPuhelin(jsonObj.getString("puhelin"));
+		myynti.setSposti(jsonObj.getString("sposti"));
 		
 		response.setContentType("application/json");
 		PrintWriter out = response.getWriter();

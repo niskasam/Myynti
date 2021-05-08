@@ -7,19 +7,22 @@
 <script src="scripts/main.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.15.0/jquery.validate.min.js"></script>
-<link rel="stylesheet" href="styles.css">
+<link rel="stylesheet" href="style.css">
+<link rel="stylesheet" type="text/css" href="styles2.css">
 
 <meta charset="UTF-8">
 <title>Asiakkaan muutos</title>
 </head>
-<body>
+<body onkeydown="tutkiNappain(event)">
 
 
 <form id="tiedot">
 	<table class="uusi-asiakas">
 		<thead>
 			<tr>
-				<th colspan="6" class="oikealle"><span class="takaisin" id="takaisin">Takaisin listaukseen</span>
+				
+				<th colspan="5" id="ilmo"></th>
+				<th colspan="7" ><a href="listaaasiakkaat.jsp" id="takaisin" class="oikealle back">Takaisin listaukseen</a></th>
 			</tr>
 		
 			<tr>
@@ -32,12 +35,12 @@
 		</thead>
 		<tbody>
 			<tr>
-				<td> <input type="text" name="Asiakas_id" id="asiakas_id"></td>
-				<td> <input type="text" name="Etunimi" id="etunimi"></td>
-				<td> <input type="text" name="Sukunimi" id="sukunimi"></td>
-				<td> <input type="text" name="Puhelin" id="puhelin"></td>
-				<td> <input type="text" name="Sposti" id="sposti"></td>
-				<td> <input class="lisaa" type="submit" id="tallenna" value="Hyväksy muutos"></td>
+				<td> <input type="text" name="asiakas_id" id="asiakas_id"></td>
+				<td> <input type="text" name="etunimi" id="etunimi"></td>
+				<td> <input type="text" name="sukunimi" id="sukunimi"></td>
+				<td> <input type="text" name="puhelin" id="puhelin"></td>
+				<td> <input type="text" name="sposti" id="sposti"></td>
+				<td> <input class="lisaa" type="button" id="tallenna" value="Hyväksy muutos" onclick="muutaTiedot()"></td>
 			</tr>
 		</tbody>
 	</table>
@@ -51,8 +54,100 @@
 </body>
 
 <script>
+
+//front end with Javascript
+
+function tutkiNappain(event){
+	if(event.keyCode==13){
+		muutaTiedot();
+	}
+}
+
+
+document.getElementById("asiakas_id").focus();
+
+var asiakas_id = requestURLParam("asiakas_id");
+fetch("asiakkaat/haeyksi/" + asiakas_id,{
+	method: 'GET'
+})
+
+.then(function(response){
+	return response.json()
+})
+
+.then(function(responseJSON){
+	document.getElementById("asiakas_id").value = responseJSON.asiakas_id;
+	document.getElementById("etunimi").value = responseJSON.etunimi;
+	document.getElementById("sukunimi").value = responseJSON.sukunimi;
+	document.getElementById("puhelin").value = responseJSON.puhelin;
+	document.getElementById("sposti").value = responseJSON.sposti;
+	document.getElementById("vanhaasiakas_id").value = responseJSON.asiakas_id
+});
+
+function muutaTiedot(){
+	var ilmo = "";
+	if(document.getElementById("asiakas_id").value.length<1){
+		ilmo="Asiakas id ei kelpaa!";
+		
+	} else if(document.getElementById("etunimi").value.length<3){
+		ilmo="Syötetty etunimi on liian lyhyt"
+		
+	} else if(document.getElementById("sukunimi").value.length<3){
+		ilmo="Syötetty sukunimi on liian lyhyt"
 	
-$(document).ready(function(){
+	} else if(document.getElementById("puhelin").value.length < 10 && document.getElementById("puhelin").value.length > 11){
+		ilmo="Syötetty puhelinnumero ei kelpaa"
+	
+	} else if(document.getElementById("sposti").value.length<5){
+		ilmo="Syötetty sähköpostiosoite on liian lyhyt"
+	}
+	
+	if(ilmo!=""){
+		document.getElementById("ilmo").innerHTML = ilmo;
+		setTimeout(function(){document.getElementById("ilmo").innerHTML = "";}
+		, 4000)
+		return;
+	}
+	
+	
+	document.getElementById("asiakas_id").value;/*=siivoa(document.getElementById("asiakas_id").value);  Siivoa ei jostain syystä toiminut error: Uncaught ReferenceError: siivoa is not defined*/ 
+	document.getElementById("etunimi").value;/*siivoa(document.getElementById("etunimi").value);*/
+	document.getElementById("sukunimi").value;/*=siivoa(document.getElementById("sukunimi").value);*/
+	document.getElementById("puhelin").value;/*siivoa(document.getElementById("puhelin").value);*/
+	document.getElementById("sposti").value;/*siivoa(document.getElementById("sposti").value);*/
+	
+	var formJsonStr=formDataJsonStr(document.getElementById("tiedot"))
+	
+	fetch("asiakkaat",{
+		method: 'PUT',
+		body: formJsonStr
+	})
+	
+	.then(function(reponse){
+		return reponse.json()
+	})
+	
+	.then(function(responseJson){
+			var vastaus = responseJson.response;
+			if(vastaus==0){
+				document.getElementById("ilmo").innerHTML = "Asiakkaan muuttaminen epäonnistui!";
+			} else if(vastaus ==1){
+				document.getElementById("ilmo").innerHTML = "Asiakkaan muuttaminen onnistui!";
+			}
+			setTimeout(function(){
+				document.getElementById("ilmo").innerHTML = "";
+			}, 5000);
+		});
+		
+	document.getElementById("tiedot").reset();
+	
+}
+
+
+
+// front end with jQuery
+	
+/* $(document).ready(function(){
 	
 	$("#takaisin").click(function(){
 		document.location="listaaasiakkaat.jsp";
@@ -151,7 +246,7 @@ function muutaTiedot(){
 		
 	}});
 	
-}
+} */
 </script>
 
 </html>

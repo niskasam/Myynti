@@ -11,9 +11,9 @@ h3{
 .ilmo{
 	color: green;
     font-size: 20px;
-    text-align: center;
     position: relative;
     top: 100px;
+    text-align: left;
 }
 
 .tiedot{
@@ -33,6 +33,8 @@ table.uusi-asiakas{
 	margin-left: auto;
 	margin-right: auto;
 }
+
+
 
 .takaisin{
 		cursor: pointer;
@@ -107,10 +109,6 @@ td input{
 	
 }
 
-
-.uusi-asiakas{
-	cursor: pointer;
-}
 
 .poista {
 	color:red;

@@ -22,4 +22,3 @@ function siivoa(teksti){
 	teksti=teksti.replace("'","''");
 	return teksti;
 }
-

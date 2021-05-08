@@ -1,0 +1,30 @@
+.uusias{
+	cursor: pointer;
+	color: whitesmoke;
+	background-color: green;
+    text-decoration: none;
+	padding: 10px;
+}
+
+a.back{
+	color: whitesmoke;
+	background-color: grey;
+	padding: 2px;
+	text-decoration: none;
+	margin: 10px;
+}
+
+.nod{
+	text-decoration:none;
+	background-color: #191970;
+	padding: 12.5px;
+	color: whitesmoke;
+}
+
+.nod2{
+	text-decoration:none;
+	background-color:#ff8080;
+	padding: 12.5px;
+	color: whitesmoke;
+}
+
